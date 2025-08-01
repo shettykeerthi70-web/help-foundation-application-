@@ -1,4 +1,4 @@
-
+a
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -6,19 +6,19 @@ import joblib
 
 # First Let's load the instances that were created
 
-with open('scaler.joblib', 'rb') as file:
-    scale=joblib.load(file)
+with open('scaler.joblib','rb')as file:
+    s=joblib.load(file)
 
-with open('pca.joblib', 'rb') as file:
-    pca= joblib.load(file)
+with open('pca.joblib','rb')as file:
+    pca_final=joblib.load(file)
 
-with open('final_model', 'rb') as file:
-    model = joblib.load(file)
+with open('final_model.joblib','rb')as file:
+    kmeans_final=joblib.load(file)
 
 def prediction(input_list):
     
-    scaled_input = scale.transform([input_list])
-    pca_input = pca.transform(scaled_input)
+    scaled_input = s.transform([input_list])
+    pca_input = pca_final.transform(scaled_input)
     output = model.predict(pca_input)[0] # index is required cuz array obj is returned
 
     if output == 0:
